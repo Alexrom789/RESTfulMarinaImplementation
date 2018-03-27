@@ -1,0 +1,424 @@
+{
+	"variables": [],
+	"info": {
+		"name": "REST Project Implementation (Marina)",
+		"_postman_id": "b444d1f9-cd92-7c2a-726c-24b70fd7c9f6",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create boat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var testBoatID = jsonData.id;\r",
+							"postman.setEnvironmentVariable(\"testBoatID\", testBoatID)\r",
+							"\r",
+							"pm.test(\"Sucessfully created boat\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(testBoatID);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/boats",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Titanic\", \"type\":\"Cruise Ship\", \"length\": 883}"
+				},
+				"description": "Creates a new boat."
+			},
+			"response": []
+		},
+		{
+			"name": "Get boat list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Successfully returned all boats\"] = jsonData.length === 3;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/boats/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "GETs lists of all boats"
+			},
+			"response": []
+		},
+		{
+			"name": "Get boat by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var testBoatID = jsonData.id;\r",
+							"pm.test(\"Sucessfully returned boat by ID\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(testBoatID);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/boats/{{testBoatID}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "GETs boat by id"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Boat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Sucessfully updated the boat\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/boats/{{testBoatID}}",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"type\":\"Luxury Liner\"}"
+				},
+				"description": "PATCHES a boat to update one of its values."
+			},
+			"response": []
+		},
+		{
+			"name": "PUT a boat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Sucessfully PUT boat in Marina\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/boats/{{testBoatID}}",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Titanic2\", \"type\":\"Luxury Cruise Ship\", \"length\": 900}"
+				},
+				"description": "PUTS a boat overwriting and updating exsisting values."
+			},
+			"response": []
+		},
+		{
+			"name": "Create a slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var testSlipID = jsonData.id;\r",
+							"postman.setEnvironmentVariable(\"testSlipID\", testSlipID)\r",
+							"\r",
+							"pm.test(\"Sucessfully createdslip\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(testSlipID);\r",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/slips",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"number\": 3}"
+				},
+				"description": "Creates a slip using POST"
+			},
+			"response": []
+		},
+		{
+			"name": "Get slips list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Successfully returned all slips\"] = jsonData.length === 2;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/slips",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "GETS list of slips"
+			},
+			"response": []
+		},
+		{
+			"name": "Get slip by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var testSlipID = jsonData.id;\r",
+							"pm.test(\"Sucessfully returned boat by ID\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(testSlipID);\r",
+							"});\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/slips/{{testSlipID}}",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "GETS slip by id"
+			},
+			"response": []
+		},
+		{
+			"name": "Update slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Sucessfully updated the slip\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/slips/{{testSlipID}}",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"number\": 5}"
+				},
+				"description": "Updates the slip"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Boat to Slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Sucessfully assigned boat to slip\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/slips/{{testSlipID}}/boat",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"current_boat\": \"{{testBoatID}}\", \"arrival_date\":\"1990/9/14\"}"
+				},
+				"description": "PUTs the boat into slip by boat id and slip id."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Slip/Boat info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Sucessfully returned slip/boat info\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/slips/{{testSlipID}}/boat",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Returns the current boat associated with the slip if there is one."
+			},
+			"response": []
+		},
+		{
+			"name": "Send Boat back to Sea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Sucessfully removed boat from slip\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/slips/{{testSlipID}}/boat",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "DELETES a boat from particular slip, sending it back to sea."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Slip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Sucessfully deleted the slip\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/slips/{{testSlipID}}",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "Deletes slip by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a boat",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Sucessfully deleted the boat\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{URL}}/boats/{{testBoatID}}",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "Deletes a boat by ID"
+			},
+			"response": []
+		}
+	]
+}
